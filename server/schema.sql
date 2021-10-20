@@ -1,12 +1,11 @@
+DROP DATABASE chat;
 CREATE DATABASE chat;
 
 USE chat;
 
 CREATE TABLE messages (
   id INT NOT NULL AUTO_INCREMENT,
-  username varchar(255) not null,
-  message varchar(1000),
-  roomname varchar(255),
+  results json default null,
   PRIMARY KEY (id)
 );
 
