@@ -10,8 +10,7 @@ describe('Persistent Node Chat Server', function() {
 
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
-      user: 'student',
-      password: 'student',
+      user: 'root',
       database: 'chat'
     });
     dbConnection.connect();
@@ -49,7 +48,7 @@ describe('Persistent Node Chat Server', function() {
 
         // TODO: You might have to change this test to get all the data from
         // your message table, since this is schema-dependent.
-        var queryString = 'SELECT * FROM messages';
+        var queryString = 'SELECT * FROM messages JOIN users on users.id = messages.userid;';
         var queryArgs = [];
 
         dbConnection.query(queryString, queryArgs, function(err, results) {
@@ -67,12 +66,8 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should output all messages from the DB', function(done) {
     // Let's insert a message into the db
-    var queryString = 'INSERT INTO messages (results) VALUES (?)';
-    var queryArgs = [{
-      username: 'Valjean',
-      message: 'Men like you can never change!',
-      roomname: 'main'
-    }];
+    var queryString = 'insert into messages (message, roomname) values ("Men like you can never change!", "main")';
+    var queryArgs = [];
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */

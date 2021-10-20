@@ -5,7 +5,9 @@ USE chat;
 
 CREATE TABLE messages (
   id INT NOT NULL AUTO_INCREMENT,
-  results varchar(255) default null,
+  message varchar(255) default null,
+  roomname varchar(255) default null,
+  userid INT,
   PRIMARY KEY (id)
 );
 
@@ -15,6 +17,8 @@ CREATE TABLE users (
   username varchar(255) not null,
   PRIMARY KEY (id)
 );
+
+ALTER TABLE messages ADD FOREIGN KEY (userid) references users (id);
 
 
 
