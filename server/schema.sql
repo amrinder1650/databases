@@ -5,7 +5,7 @@ USE chat;
 
 CREATE TABLE messages (
   id INT NOT NULL AUTO_INCREMENT,
-  results json default null,
+  results varchar(255) default null,
   PRIMARY KEY (id)
 );
 
