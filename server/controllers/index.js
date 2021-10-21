@@ -8,7 +8,6 @@ module.exports = {
           res.writeHead(404);
           res.end(err);
         } else {
-          console.log(rows);
           res.writeHead(200, {'Content-Type': 'application/json'});
           res.end(rows);
         }
@@ -16,25 +15,52 @@ module.exports = {
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       var body = '';
-      request.on('data', chunk => {
+      req.on('data', chunk => {
         body += chunk.toString();
       });
-      request.on('end', () => {
-        var message = JSON.parse(body);
-        //push message to messages sql table
-        response.writeHead(201, {'Content-Type': 'application/json'});
-        response.end(JSON.stringify(
-          //get all messages from messages sql table
-          // using models
-        ));
+      req.on('end', () => {
+        models.messages.post(body, (err, rows) => {
+          if (err) {
+            res.writeHead(404);
+            res.end(err);
+          } else {
+            res.writeHead(201, {'Content-Type': 'application/json'});
+            res.end(rows);
+          }
+        });
       });
     } // a function which handles posting a message to the database
   },
 
   users: {
-    // Ditto as above
-    get: function (req, res) {},
-    post: function (req, res) {}
+    get: function (req, res) {
+      models.users.get((err, rows) => {
+        if (err) {
+          res.writeHead(404);
+          res.end(err);
+        } else {
+          res.writeHead(200, {'Content-Type': 'application/json'});
+          res.end(rows);
+        }
+      });
+    },
+    post: function (req, res) {
+      var body = '';
+      req.on('data', chunk => {
+        body += chunk.toString();
+      });
+      req.on('end', () => {
+        models.users.post(body, (err, rows) => {
+          if (err) {
+            res.writeHead(404);
+            res.end(err);
+          } else {
+            res.writeHead(201, {'Content-Type': 'application/json'});
+            res.end(rows);
+          }
+        });
+      });
+    }
   }
 };
 

@@ -22,6 +22,8 @@ ALTER TABLE messages ADD FOREIGN KEY (userid) references users (id);
 
 
 
+
+
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
  *  to create the databsase and the tables.*/
