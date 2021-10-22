@@ -14,20 +14,14 @@ module.exports = {
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      var body = '';
-      req.on('data', chunk => {
-        body += chunk.toString();
-      });
-      req.on('end', () => {
-        models.messages.post(body, (err, rows) => {
-          if (err) {
-            res.writeHead(404);
-            res.end(err);
-          } else {
-            res.writeHead(201, {'Content-Type': 'application/json'});
-            res.end(rows);
-          }
-        });
+      models.messages.post(req.body, (err, rows) => {
+        if (err) {
+          res.writeHead(404);
+          res.end(err);
+        } else {
+          res.writeHead(201, {'Content-Type': 'application/json'});
+          res.end(rows);
+        }
       });
     } // a function which handles posting a message to the database
   },
@@ -45,20 +39,14 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      var body = '';
-      req.on('data', chunk => {
-        body += chunk.toString();
-      });
-      req.on('end', () => {
-        models.users.post(body, (err, rows) => {
-          if (err) {
-            res.writeHead(404);
-            res.end(err);
-          } else {
-            res.writeHead(201, {'Content-Type': 'application/json'});
-            res.end(rows);
-          }
-        });
+      models.users.post(req.body, (err, rows) => {
+        if (err) {
+          res.writeHead(404);
+          res.end(err);
+        } else {
+          res.writeHead(201, {'Content-Type': 'application/json'});
+          res.end(rows);
+        }
       });
     }
   }

@@ -15,7 +15,8 @@ CREATE TABLE messages (
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
   username varchar(255) not null,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY (username)
 );
 
 ALTER TABLE messages ADD FOREIGN KEY (userid) references users (id);
